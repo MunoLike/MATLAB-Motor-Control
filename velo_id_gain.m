@@ -19,14 +19,19 @@ open_system('velo_id_gain_sl/Out1');
 y_mean_list= [];
 for i=1:length(u_ref_list)
     u_ref = u_ref_list(i);
-    %    sim('velo_id_gain_sl');
-    set_param('velo_id_gain_sl', 'SimulationCommand', 'start')
-    while 1
-        status = get_param('velo_id_gain_sl', 'SimulationStatus');
-        if(strcmp(status, 'stopped'))
-            break;
-        end
-    end
+    set_param('velo_id_gain_sl', 'SimulationMode', 'normal')
+    set_param('velo_id_gain_sl','ConnectedIO','on')
+    % set_param('velo_id_gain_sl', 'SimulationMode', 'external')
+    % set_param('velo_id_gain_sl', 'SimulationCommand', 'start')
+    fprintf('start running... #%d\n', i);
+    sim('velo_id_gain_sl');
+    % while 1
+    %     status = get_param('velo_id_gain_sl', 'RuntimeObject');
+    %     disp(status.CurrentTime);
+    %     if(strcmp(status, 'stopped'))
+    %         break;
+    %     end
+    % end
     t = yout.time;
     y = yout.signals.values;
     y_mean = mean(y(250:end));
