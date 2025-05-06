@@ -5,10 +5,11 @@ clear all
 close all
 
 %% Parameters
+% r_constは止まるギリギリの電圧を指定してあげたほうが動作域の違いによるパラメータ推定結果の違いが小さくなる
 ts  = 1/50;
-u_ini = 3.0; % Initial input voltage
-r_const = 2.0; % offset voltage
-p_const = 1.0; % step voltage
+u_ini = 2.0; % Initial input voltage
+r_const = 1.5; % offset voltage
+p_const = 0.5; % step voltage
 s_time = 10; % step time
 w_time = 4; % wait for steady time
 
