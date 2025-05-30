@@ -6,9 +6,9 @@ load sim_param
 
 %% Parameters for identification
 r = 40;
-r_cyc = 4;
-Kp_id = 0.077;
-Ncyc = 2;
+r_cyc = 2;
+Kp_id = 0.08;
+Ncyc = 588
 tfinal = r_cyc * Ncyc;
 
 %% ID Experiment
@@ -20,18 +20,18 @@ set_param(model_name,'ConnectedIO','on');
 sim(model_name);
 
 %% Data processing
-y = yout.signals(1).values(:,2);
+y = yout.signals.values(:, 2);
 t = yout.time;
 
 NN = length(y);
 N = r_cyc/ts;
-yy = reshape(y(2:NN),N,[NN-1]/N);
-yf = yy(1:N/2,2:end);
+yy = reshape(y(2:NN),N,(NN-1)/N); % y(2:NN)をN行×(繰り返し回数)列に分割
+yf = yy(1:N/2,2:end); % 
 
 % 平均化と正規化処理
 ym = mean(yf')';
 y0 = ym(1); yN = ym(end);
-ym = (ym-y0)/(yN-y0);
+ym = (ym-y0)/(yN-y0); % 初期値を0に、最終値を1に正規化
 
 %% Plot figures
 t = (0:N/2-1)*ts;
