@@ -7,8 +7,8 @@ load sim_param
 %% Parameters for identification
 r = 40;
 r_cyc = 2;
-Kp_id = 0.08;
-Ncyc = 588
+Kp_id = 0.079;
+Ncyc = 5
 tfinal = r_cyc * Ncyc;
 
 %% ID Experiment
